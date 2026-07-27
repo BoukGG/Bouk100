@@ -2,19 +2,27 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## Repository Status
+## What This Is
 
-Bouk100 is a newly initialized repository. It currently contains only a README.md with the project title — there is no source code, build system, test framework, or tooling configuration yet.
+A single-page fundraising website: "Both Clocks Start Friday at Noon" — a 100-mile ultramarathon run (Southern Tour Ultra, Wilmington, NC, Jan 15–16, 2027) raising money for NourishNC, a nonprofit feeding food-insecure kids in New Hanover County.
 
-## Current State
+## Structure
 
-- `README.md` — project title only
-- Default branch: `main`
+The entire site is one file, `index.html`, with no build step, no dependencies, and no framework. CSS and JavaScript are inlined. It's designed to be hosted as a static file (Netlify, GitHub Pages, Cloudflare Pages).
 
-## Guidance for Future Work
+Within `index.html`:
 
-Since the project has no established structure or conventions yet:
+- **Views/routing**: Six sections (`#home`, `#why`, `#charity`, `#race`, `#log`, `#give`) are `<section class="view">` elements. Inline JS at the bottom handles tab-style routing via `data-go` attributes and `history.pushState` — only one view is visible at a time (`.is-on`). There is no server-side routing.
+- **Hero animation**: The "hour rule" (24 ticks from Friday noon) and the two comparison clock bars are generated/animated by the inline script when the home view activates.
+- **Design tokens**: Colors, fonts, and spacing are CSS custom properties in `:root`. Fonts load from Google Fonts (Bricolage Grotesque, Newsreader, IBM Plex Mono).
 
-- When code is first added, update this file with the actual build, lint, and test commands for whatever toolchain is chosen.
-- Document the architecture here once there is a "big picture" to describe (entry points, module boundaries, data flow).
-- Do not assume a language or framework — check the repository contents first, as this file may be out of date relative to newly added code.
+## Conventions
+
+- **Placeholder content**: Elements marked `class="edit"` (dashed underline) and `<!-- EDIT -->` comments are draft content awaiting the site owner's real values. Notably, `DONATE_URL` is a placeholder that appears in every donate link and must be replaced with the real NourishNC fundraising page URL before launch. Preserve these markers when editing unless the user is supplying the real content.
+- **Training log entries**: New entries are added by copying an `<article class="entry">` block in the `#log` section, newest at the top.
+- **Mobile-first care**: The stylesheet has extensive commented `@media` blocks explaining specific mobile fixes (tab-strip edge fades, stacked buttons, label collision fixes). Keep desktop breakpoints untouched when adjusting mobile styles, and match the existing comment style explaining *why* a mobile override exists.
+- **Accessibility**: Respect the existing `prefers-reduced-motion` block (animations resolve to their end state) and `:focus-visible` styles when adding interactive elements.
+
+## Development
+
+There are no build, lint, or test commands — open `index.html` directly in a browser (or serve with any static file server) to preview changes.
