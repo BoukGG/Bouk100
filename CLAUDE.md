@@ -14,7 +14,7 @@ Within `index.html`:
 
 - **Views/routing**: Six sections (`#home`, `#why`, `#charity`, `#race`, `#log`, `#give`) are `<section class="view">` elements. Inline JS at the bottom handles tab-style routing via `data-go` attributes and `history.pushState` — only one view is visible at a time (`.is-on`). There is no server-side routing.
 - **Hero animation**: The "hour rule" (24 ticks from Friday noon) and the two comparison clock bars are generated/animated by the inline script when the home view activates.
-- **Design tokens**: Colors, fonts, and spacing are CSS custom properties in `:root`. Fonts load from Google Fonts (Bricolage Grotesque, Newsreader, IBM Plex Mono).
+- **Design tokens**: Colors, fonts, and spacing are CSS custom properties in `:root`. The palette is coastal North Carolina: Atlantic-night navy (`--ink`), Cape Fear channel blue (`--deep`), longleaf pine (`--pine`), dune-sand paper (`--paper`), and two accents with distinct jobs — sea-oats gold (`--lamp`) for the hero sunrise motif and donate CTAs, and Carolina blue (`--carolina`) as the secondary accent (dark-band kickers, the 67-hour clock bar, footer links). Keep that division when adding accented elements. Several `rgba()` values in the stylesheet are derived from the token hexes, so changing a token means updating its matching `rgba()` occurrences too. Fonts load from Google Fonts (Bricolage Grotesque, Newsreader, IBM Plex Mono).
 
 ## Conventions
 
