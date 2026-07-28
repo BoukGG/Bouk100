@@ -989,9 +989,18 @@ p{margin:0 0 1.15em}
      The cache-busting query defeats GitHub Pages' 10-minute asset cache,
      so nightly updates show on the next normal page load. */
   fetch('training-data.json?v=' + Date.now())
-    .then(function(r){ return r.ok ? r.json() : Promise.reject(r.status); })
-    .then(function(d){
-      var now = new Date();
+    .then(function(r){
+      if (!r.ok) return Promise.reject(r.status);
+      /* trust the web server's clock over the device's — a visitor's
+         wrong clock shouldn't skew the countdown */
+      var serverNow = new Date(r.headers.get('date'));
+      return r.json().then(function(d){
+        return { d: d, now: isNaN(serverNow) ? new Date() : serverNow };
+      });
+    })
+    .then(function(o){
+      var d = o.d;
+      var now = o.now;
       var start = new Date(d.blockStart);
       var days = Math.max(0, Math.ceil((new Date(d.raceDate) - now) / 864e5));
       var el = Math.floor((now - start) / 864e5);
