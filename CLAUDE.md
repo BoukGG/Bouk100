@@ -16,8 +16,10 @@ The site is `index.html`, with no build step, no dependencies, and no framework.
 
 Within `index.html`:
 
-- **Views/routing**: Six sections (`#home`, `#why`, `#causes`, `#race`, `#log`, `#shop`) are `<section class="view">` elements. Inline JS at the bottom handles tab-style routing via `data-go` attributes and `history.pushState` — only one view is visible at a time (`.is-on`). There is no server-side routing. The Shop view is reached via the nav CTA button, not a tab.
-- **Hero animation**: The "hour rule" (24 ticks from Friday noon) and the two comparison clock bars are generated/animated by the inline script when the home view activates.
+- **One-page scroll**: Six sections (`#home`, `#why`, `#causes`, `#race`, `#log`, `#shop`) form one continuous scroll narrative — there is no view switching. `[data-go]` elements smooth-scroll to their section; a fixed nav scrollspies the sections (IntersectionObserver) and highlights the active tab; a 2px orange scroll-progress line runs along the top. The Shop is reached via the nav CTA button, not a tab.
+- **Night-to-dawn arc**: the page background deliberately runs dark → light down the page (ink hero/clocks/why → pine causes band → `.dawn` gradient divider with sunrise glow → dune-sand paper for race/log/shop → ink footer), mirroring the race's night. Preserve this order when adding sections.
+- **Scroll reveals**: `.rv` elements fade/rise in via IntersectionObserver (`.is-in`). New content blocks should get `class="rv"` to match. Reduced-motion renders everything in place.
+- **Hero animation**: The "hour rule" (24 ticks from Friday noon) animates on load; the two clock bars light when scrolled into view.
 - **Design tokens**: Colors, fonts, and spacing are CSS custom properties in `:root`. The palette is coastal North Carolina: Atlantic-night navy (`--ink`), Cape Fear channel blue (`--deep`), longleaf pine (`--pine`), dune-sand paper (`--paper`), and two accents with distinct jobs — blaze orange (`--lamp`) for the hero sunrise motif and donate CTAs, and Carolina blue (`--carolina`) as the secondary accent (dark-band kickers, the no-finish-line clock bar, footer links). Keep that division when adding accented elements. Several `rgba()` values in the stylesheet are derived from the token hexes, so changing a token means updating its matching `rgba()` occurrences too. Fonts load from Google Fonts (Bricolage Grotesque, Newsreader, IBM Plex Mono).
 
 ## Conventions
