@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#0D1B2A">
-<title>Both Clocks Start Friday at Noon — 100 miles for NourishNC</title>
-<meta name="description" content="On January 15, 2027 I'm running 100 miles at the Southern Tour Ultra outside Wilmington, NC to raise money for NourishNC, which feeds food-insecure kids in New Hanover County.">
+<title>Both Clocks — 100 miles, 24 hours, for NourishNC</title>
+<meta name="description" content="On January 15, 2027 I'm running 100 miles in 24 hours at the Southern Tour Ultra outside Wilmington, NC to raise money for NourishNC, which feeds food-insecure kids in New Hanover County.">
 
 <!-- ============================================================
      EDITING THIS SITE
@@ -263,13 +263,19 @@ p{margin:0 0 1.15em}
 }
 .bar-mine i{background:var(--lamp)}
 .bar-theirs i{background:var(--carolina)}
-.clocks.is-lit .bar-mine i{width:35.8%}
+/* the chosen clock completes — a finish line; the unchosen one fades
+   off the right edge of the track: no end to reach */
+.bar-theirs{
+  -webkit-mask-image:linear-gradient(90deg,#000 55%,transparent 98%);
+          mask-image:linear-gradient(90deg,#000 55%,transparent 98%);
+}
+.clocks.is-lit .bar-mine i{width:100%}
 .clocks.is-lit .bar-theirs i{width:100%}
 .clock-note{font-size:.92rem; color:var(--paper-70); margin:.5rem 0 0; font-weight:300}
 
-/* MOBILE: "A weekend without school meals" + "~67 hours" don't fit on
-   one phone line — stack the label above the duration instead of
-   letting them squash together. */
+/* MOBILE: the clock label + duration don't fit on one phone line —
+   stack the label above the duration instead of letting them squash
+   together. */
 @media (max-width:620px){
   .clocks{gap:1.75rem}
   .clock-head{
@@ -443,7 +449,7 @@ p{margin:0 0 1.15em}
   .ticks .tick{height:var(--t-day)}
   .ticks .tick.is-night{height:var(--t-night)}
   .ticks .tick.is-dawn{height:var(--t-dawn)}
-  .clocks .bar-mine i{width:35.8%}
+  .clocks .bar-mine i{width:100%}
   .clocks .bar-theirs i{width:100%}
 }
 </style>
@@ -452,7 +458,7 @@ p{margin:0 0 1.15em}
 
 <nav class="nav">
   <div class="nav-in wrap">
-    <a class="brand" href="#" data-go="home">100 Miles <span>/</span> NourishNC</a>
+    <a class="brand" href="#" data-go="home">Both&nbsp;Clocks <span>/</span> 100&nbsp;Miles</a>
     <div class="tabs" role="tablist">
       <button class="tab" data-go="home">Home</button>
       <button class="tab" data-go="why">Why</button>
@@ -476,9 +482,9 @@ p{margin:0 0 1.15em}
       <p class="eyebrow">Southern&nbsp;Tour&nbsp;Ultra&nbsp;· Wilmington,&nbsp;NC&nbsp;· Jan&nbsp;15–16,&nbsp;2027</p>
       <h1>Both clocks start <em>Friday at noon.</em></h1>
       <p class="hero-sub">
-        Mine runs about 24 hours and ends at a finish line. For a kid in New Hanover County
-        who gets their last school meal at Friday lunch, the clock runs 67 hours until
-        breakfast on Monday.
+        Mine runs 24 hours and ends at a finish line I chose. For a kid in New Hanover
+        County living with hunger, the clock keeps running — and nobody handed them
+        a finish line.
       </p>
 
       <div class="rule">
@@ -498,25 +504,25 @@ p{margin:0 0 1.15em}
 
   <div class="band band-deep">
     <div class="wrap">
-      <p class="eyebrow kicker">The same weekend, two ways</p>
+      <p class="eyebrow kicker">Two clocks, one difference</p>
       <h2 style="margin-top:.7rem; max-width:18ch">One of these is a choice.</h2>
 
       <div class="clocks" id="clocks">
         <div>
           <div class="clock-head">
-            <span>My race</span>
-            <span class="clock-hrs">~24 hours</span>
+            <span>The clock I chose</span>
+            <span class="clock-hrs">~24 hours, then it stops</span>
           </div>
           <div class="bar bar-mine"><i></i></div>
-          <p class="clock-note">Friday noon to sometime Saturday morning. I'll eat the whole way — <span class="edit">roughly 8,000 calories</span> of gels, broth, and whatever still sounds edible at mile 80.</p>
+          <p class="clock-note">100 miles, noon Friday to noon Saturday. I'll eat the whole way — <span class="edit">roughly 8,000 calories</span> of gels, broth, and whatever still sounds edible at mile 80. However bad it gets, it ends at a finish line.</p>
         </div>
         <div>
           <div class="clock-head">
-            <span>A weekend without school meals</span>
-            <span class="clock-hrs hrs-theirs">~67 hours</span>
+            <span>The clock nobody chooses</span>
+            <span class="clock-hrs hrs-theirs">no finish line</span>
           </div>
           <div class="bar bar-theirs"><i></i></div>
-          <p class="clock-note">Friday lunch to Monday breakfast. For thousands of kids in this county, that gap is the hardest part of the week — and it repeats every seven days.</p>
+          <p class="clock-note">Hunger doesn't run on race time. For thousands of kids in this county, the clock doesn't stop when mine does — it runs until someone steps in.</p>
         </div>
       </div>
 
@@ -578,7 +584,7 @@ p{margin:0 0 1.15em}
         I get to choose to be hungry and exhausted for a day, and then it stops. That's the whole difference, and it's the reason I picked this cause.
       </div>
 
-      <p>The race runs through New Hanover County. So does the problem. Kids there eat breakfast and lunch at school five days a week, and then Friday afternoon comes and the food stops until Monday. That's roughly 67 hours — almost three times as long as my race — and unlike my race, nobody signed up for it and there's no finish line at the end of it.</p>
+      <p>The race runs through New Hanover County. So does the problem. Kids there eat breakfast and lunch at school five days a week — and when school stops, for a weekend or a whole summer, the food can stop with it. Nobody signed up for that, and there's no finish line at the end of it.</p>
 
       <p><span class="edit">[Add something personal here — a training run that broke you, why food specifically, a moment from volunteering at NourishNC. This paragraph is the one people will remember. Write it after you've done a shift with them.]</span></p>
 
@@ -614,7 +620,7 @@ p{margin:0 0 1.15em}
         <div class="card">
           <span class="num">01</span>
           <h3>The Backpack Program</h3>
-          <p>Kids from pre-K through 5th grade go home with three meals a day for every weekend and every school break. This is the program that closes the 67-hour gap.</p>
+          <p>Kids from pre-K through 5th grade go home with three meals a day for every weekend and every school break — food that's there when school isn't.</p>
         </div>
         <div class="card">
           <span class="num">02</span>
@@ -837,9 +843,10 @@ p{margin:0 0 1.15em}
       </div>
     </div>
     <p class="foot-legal">
-      Raising money for NourishNC, a 501(c)(3) nonprofit in Wilmington, NC. This is an independent
-      fundraising effort — this site is not operated by NourishNC or by the Southern Tour Ultra.
-      All donations are made directly to NourishNC through their own donation page.
+      Both Clocks is an independent fundraising project, currently raising money for NourishNC,
+      a 501(c)(3) nonprofit in Wilmington, NC. This site is not operated by NourishNC or by the
+      Southern Tour Ultra. All donations are made directly to NourishNC through their own
+      donation page.
     </p>
   </div>
 </footer>

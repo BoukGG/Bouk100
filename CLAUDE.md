@@ -4,7 +4,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What This Is
 
-A single-page fundraising website: "Both Clocks Start Friday at Noon" — a 100-mile ultramarathon run (Southern Tour Ultra, Wilmington, NC, Jan 15–16, 2027) raising money for NourishNC, a nonprofit feeding food-insecure kids in New Hanover County.
+The website of **Both Clocks**, the owner's endurance-fundraising brand. Its first event: a 100-mile ultramarathon in 24 hours (Southern Tour Ultra, Wilmington, NC, Jan 15–16, 2027) raising money for NourishNC, a nonprofit feeding food-insecure kids in New Hanover County.
+
+**Brand rules:** the thesis is *chosen vs. unchosen suffering* — "I get to choose my hard thing and it ends at a finish line; others (like kids facing hunger) never got that choice." The only numbers the brand uses are **100 miles** and **24 hours**. Never reintroduce the old "67 hours without school meals" framing — the owner explicitly removed it. The brand is deliberately broader than this one race: future events may have different challenges and different beneficiary charities, so keep event-specific and charity-specific copy swappable rather than baked into the brand identity.
 
 ## Structure
 
@@ -16,7 +18,7 @@ Within `index.html`:
 
 - **Views/routing**: Six sections (`#home`, `#why`, `#charity`, `#race`, `#log`, `#give`) are `<section class="view">` elements. Inline JS at the bottom handles tab-style routing via `data-go` attributes and `history.pushState` — only one view is visible at a time (`.is-on`). There is no server-side routing.
 - **Hero animation**: The "hour rule" (24 ticks from Friday noon) and the two comparison clock bars are generated/animated by the inline script when the home view activates.
-- **Design tokens**: Colors, fonts, and spacing are CSS custom properties in `:root`. The palette is coastal North Carolina: Atlantic-night navy (`--ink`), Cape Fear channel blue (`--deep`), longleaf pine (`--pine`), dune-sand paper (`--paper`), and two accents with distinct jobs — blaze orange (`--lamp`) for the hero sunrise motif and donate CTAs, and Carolina blue (`--carolina`) as the secondary accent (dark-band kickers, the 67-hour clock bar, footer links). Keep that division when adding accented elements. Several `rgba()` values in the stylesheet are derived from the token hexes, so changing a token means updating its matching `rgba()` occurrences too. Fonts load from Google Fonts (Bricolage Grotesque, Newsreader, IBM Plex Mono).
+- **Design tokens**: Colors, fonts, and spacing are CSS custom properties in `:root`. The palette is coastal North Carolina: Atlantic-night navy (`--ink`), Cape Fear channel blue (`--deep`), longleaf pine (`--pine`), dune-sand paper (`--paper`), and two accents with distinct jobs — blaze orange (`--lamp`) for the hero sunrise motif and donate CTAs, and Carolina blue (`--carolina`) as the secondary accent (dark-band kickers, the no-finish-line clock bar, footer links). Keep that division when adding accented elements. Several `rgba()` values in the stylesheet are derived from the token hexes, so changing a token means updating its matching `rgba()` occurrences too. Fonts load from Google Fonts (Bricolage Grotesque, Newsreader, IBM Plex Mono).
 
 ## Conventions
 
