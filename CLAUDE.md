@@ -23,6 +23,10 @@ Within `index.html`:
 - **Mobile-first care**: The stylesheet has extensive commented `@media` blocks explaining specific mobile fixes (tab-strip edge fades, stacked buttons, label collision fixes). Keep desktop breakpoints untouched when adjusting mobile styles, and match the existing comment style explaining *why* a mobile override exists.
 - **Accessibility**: Respect the existing `prefers-reduced-motion` block (animations resolve to their end state) and `:focus-visible` styles when adding interactive elements.
 
+## Training Console (`ultra-console.jsx`)
+
+A separate React component (a claude.ai chat artifact, not part of the website — nothing imports it) that renders the owner's 25-week training plan for the race. The `COMPLETED` constant near the top is the durable record of finished sessions, keyed `"weekIndex-dayIndex"` (zero-based; `"0-0"` = Week 1 Monday). When the owner reports completing a workout, add its key there with a short comment — interactive checkmarks in the artifact preview save only to that chat's `window.storage`, so this file is the source of truth. After updating, the owner must paste the new version into their claude.ai artifact to see it there.
+
 ## Development
 
 There are no build, lint, or test commands — open `index.html` directly in a browser (or serve with any static file server) to preview changes.

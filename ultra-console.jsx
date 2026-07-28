@@ -67,6 +67,14 @@ const WEEKS = [
           4: "RACE — 100 miles", 5: "—", 6: "—" } },
 ];
 
+/* Sessions completed, recorded in-file so this file — not any one chat's
+   storage — is the source of truth. Keys are "weekIndex-dayIndex", both
+   zero-based ("0-0" = Week 1 Monday). Merged UNDER interactive checkmarks
+   on load; to un-complete a day listed here, delete its line. */
+const COMPLETED = {
+  "0-0": true, // W1 Mon Jul 27 — Rest day
+};
+
 const TEMPLATE = [
   "Rest, or 45–60 min easy spin",
   "Easy run + Strength A",
@@ -133,7 +141,7 @@ const weekTotal = (w) => w.mi.reduce((a, b) => a + b, 0) - (w.raceweek ? 100 : 0
 
 export default function UltraConsole() {
   const [tab, setTab] = useState("today");
-  const [done, setDone] = useState({});
+  const [done, setDone] = useState(COMPLETED);
   const [logs, setLogs] = useState({});
   const [openWeek, setOpenWeek] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -153,7 +161,7 @@ export default function UltraConsole() {
     (async () => {
       try {
         const r = await window.storage.get("ultra:progress");
-        if (r?.value) setDone(JSON.parse(r.value).done || {});
+        if (r?.value) setDone({ ...COMPLETED, ...(JSON.parse(r.value).done || {}) });
       } catch (e) { /* first run */ }
       try {
         const r = await window.storage.get("ultra:logs");
