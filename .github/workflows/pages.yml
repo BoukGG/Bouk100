@@ -1,0 +1,35 @@
+name: Deploy site to GitHub Pages
+
+on:
+  push:
+    branches: [main, claude/claude-md-docs-ysyn7i]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      # enablement: true creates the Pages site on first run, so Pages
+      # never needs to be switched on manually in repo Settings
+      - uses: actions/configure-pages@v5
+        with:
+          enablement: true
+      # the repo root is the site — no build step, upload it as-is
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+      - id: deployment
+        uses: actions/deploy-pages@v4
