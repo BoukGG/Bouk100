@@ -25,7 +25,9 @@ Within `index.html`:
 
 ## Training Console (`ultra-console.jsx`)
 
-A separate React component (a claude.ai chat artifact, not part of the website — nothing imports it) that renders the owner's 25-week training plan for the race. The `COMPLETED` constant near the top is the durable record of finished sessions, keyed `"weekIndex-dayIndex"` (zero-based; `"0-0"` = Week 1 Monday). When the owner reports completing a workout, add its key there with a short comment — interactive checkmarks in the artifact preview save only to that chat's `window.storage`, so this file is the source of truth. After updating, the owner must paste the new version into their claude.ai artifact to see it there.
+A separate React component (originally a claude.ai chat artifact, not part of the website — nothing imports it) that renders the owner's 25-week training plan for the race. The `COMPLETED` constant near the top is the durable record of finished sessions, keyed `"weekIndex-dayIndex"` (zero-based; `"0-0"` = Week 1 Monday). When the owner reports completing a workout, add its key there with a short comment — interactive checkmarks save only to per-browser/per-chat storage, so this file is the source of truth.
+
+`console.html` renders the component with no build step: it loads the React and Babel UMD builds vendored in `vendor/`, fetches the `.jsx`, compiles it in the browser, and shims the artifact `window.storage` API onto `localStorage`. It must be served over HTTP (`fetch` of the `.jsx` fails from `file://`).
 
 ## Development
 
