@@ -12,7 +12,7 @@ The website of **Both Clocks**, the owner's endurance brand. The model: the owne
 
 The site is `index.html`, with no build step, no dependencies, and no framework. CSS and JavaScript are inlined. It's designed to be hosted as a static file (Netlify, GitHub Pages, Cloudflare Pages).
 
-`training-data.json` is the single source of truth for the training block: the 25-week plan (`weeks`, `phases`, dates), the completed-session record (`completed`, keyed `"weekIndex-dayIndex"`, zero-based), and public daily actuals (`actuals`, keyed `"YYYY-MM-DD"` with `miles` and an optional `note`). Both `index.html` (the "Live from the build" block on the `#log` view) and the training console read it. **Nightly update flow:** when the owner reports a completed session, add its key to `completed`, add an `actuals` entry for the date, and bump `updated` — nothing else needs to change. Never put private health data (weight, sleep, soreness) in this file; it's public. Those stay in the console's localStorage.
+`training-data.json` is the single source of truth for the training block: the 25-week plan (`weeks`, `phases`, dates), the completed-session record (`completed`, keyed `"weekIndex-dayIndex"`, zero-based), and public daily actuals (`actuals`, keyed `"YYYY-MM-DD"` with `miles` and an optional `note`). `index.html` reads it for the "Live from the build" block on the `#log` section. **Nightly update flow:** when the owner reports a completed session, add its key to `completed`, add an `actuals` entry for the date, and bump `updated` — nothing else needs to change. Never put private health data (weight, sleep, soreness) in this file; it's public.
 
 Within `index.html`:
 
@@ -28,12 +28,6 @@ Within `index.html`:
 - **Training log entries**: New entries are added by copying an `<article class="entry">` block in the `#log` section, newest at the top.
 - **Mobile-first care**: The stylesheet has extensive commented `@media` blocks explaining specific mobile fixes (tab-strip edge fades, stacked buttons, label collision fixes). Keep desktop breakpoints untouched when adjusting mobile styles, and match the existing comment style explaining *why* a mobile override exists.
 - **Accessibility**: Respect the existing `prefers-reduced-motion` block (animations resolve to their end state) and `:focus-visible` styles when adding interactive elements.
-
-## Training Console (`ultra-console.jsx`)
-
-A React component (originally a claude.ai chat artifact; the website does not import it) that renders the owner's private training cockpit: today's session, interactive checkoffs, a daily log, and planned-vs-actual charts. It contains no plan data of its own — it reads everything from `window.TRAINING_DATA`, which `console.html` populates from `training-data.json` before compiling the component. Interactive checkmarks and log entries save to per-browser localStorage on top of the JSON baselines (`completed`, `actuals`); un-completing a baselined day requires editing the JSON.
-
-`console.html` renders the component with no build step: it loads the React and Babel UMD builds vendored in `vendor/`, fetches `training-data.json` and the `.jsx`, compiles in the browser, and shims the artifact `window.storage` API onto `localStorage`. It must be served over HTTP (`fetch` fails from `file://`).
 
 ## Development
 
