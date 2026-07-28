@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <!-- Both Clocks — favicon / app tile. White micro-mark on a carbon
+       rounded square so it reads on light and dark browser chrome.
+       Inner ring compresses to a solid dot at micro sizes. -->
+  <rect x="0" y="0" width="100" height="100" rx="22" fill="#0E0F11"/>
+  <path d="M 61.9 24.9 A 28 28 0 1 1 38.1 24.9" fill="none" stroke="#F4F3F0" stroke-width="11"/>
+  <rect x="43.5" y="18" width="13" height="7" rx="1.5" fill="#F4F3F0"/>
+  <circle cx="50" cy="50" r="8.5" fill="#F4F3F0"/>
+</svg>

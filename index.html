@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#0E0F11">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
 <title>Both Clocks</title>
 <meta name="description" content="Both Clocks is an endurance project: long, brutal challenges taken on by choice, raising money and awareness for people suffering through obstacles they didn't choose.">
 
@@ -36,13 +37,11 @@
 
 <style>
 :root{
-  /* MONOCHROME SYSTEM: the site is carbon and bone. The only color on
-     the entire page is --lamp, reserved for the hero's dawn tick (and
-     its sunrise label) — nothing else may use it. */
+  /* MONOCHROME SYSTEM: the site is carbon and bone. No color anywhere,
+     by owner decree — the mark and the type carry everything. */
   --ink:#0E0F11;        /* carbon */
   --deep:#1A1C1F;       /* graphite */
   --pine:#26282C;       /* slate — third dark step (class name is legacy) */
-  --lamp:#FF6B35;       /* the single accent: the dawn tick only */
   --paper:#F4F3F0;      /* bone */
   --paper-2:#E9E7E2;
   --ink-70:rgba(14,15,17,.70);
@@ -125,8 +124,11 @@ p{margin:0 0 1.15em}
   font-family:var(--mono); font-size:.76rem; font-weight:600;
   letter-spacing:.14em; text-transform:uppercase; text-decoration:none;
   white-space:nowrap; margin-right:auto;
+  display:flex; align-items:center; gap:.6rem;
 }
 .brand span{color:var(--paper-45)}
+/* the mark inherits currentColor so it works on any band it lands on */
+.mark{width:20px; height:20px; flex-shrink:0; display:block}
 .tabs{display:flex; gap:.15rem; overflow-x:auto; scrollbar-width:none}
 .tabs::-webkit-scrollbar{display:none}
 .tab{
@@ -242,7 +244,7 @@ p{margin:0 0 1.15em}
   height:var(--t-rest); transition:height .6s cubic-bezier(.2,.8,.3,1), background .6s;
 }
 .tick.is-night{background:rgba(244,243,240,.09)}
-.tick.is-dawn{background:var(--lamp)}
+.tick.is-dawn{background:var(--paper)}
 .ticks.is-lit .tick{height:var(--t-day)}
 .ticks.is-lit .tick.is-night{height:var(--t-night)}
 .ticks.is-lit .tick.is-dawn{height:var(--t-dawn)}
@@ -262,11 +264,11 @@ p{margin:0 0 1.15em}
   .rule-foot{font-size:.6rem; letter-spacing:.06em}
   .rule-foot .foot-dawn{
     position:absolute; top:1.5rem; left:81.25%;   /* centre of the 07:00 tick */
-    transform:translateX(-50%); color:var(--lamp);
+    transform:translateX(-50%); color:var(--paper-70);
   }
   .rule-foot .foot-dawn::before{
     content:""; position:absolute; left:50%; top:-.55rem; width:1px; height:.4rem;
-    background:rgba(255,107,53,.55);
+    background:rgba(244,243,240,.55);
   }
 }
 /* very small phones — pin the sunrise label to the right edge so it
@@ -510,7 +512,7 @@ p{margin:0 0 1.15em}
 
 <nav class="nav" id="nav">
   <div class="nav-in wrap">
-    <a class="brand" href="#" data-go="home">Both&nbsp;Clocks<span>.</span></a>
+    <a class="brand" href="#" data-go="home"><svg class="mark" viewBox="0 0 100 100" aria-hidden="true"><path d="M 63.0 14.3 A 38 38 0 1 1 37.0 14.3" fill="none" stroke="currentColor" stroke-width="9"/><rect x="43" y="11" width="14" height="6.5" rx="1" fill="currentColor"/><circle cx="50" cy="50" r="20" fill="none" stroke="currentColor" stroke-width="6"/></svg>Both&nbsp;Clocks<span>.</span></a>
     <div class="tabs">
       <button class="tab" data-go="home">Home</button>
       <button class="tab" data-go="why">Why</button>
@@ -845,6 +847,7 @@ p{margin:0 0 1.15em}
 
 <footer class="foot">
   <div class="wrap">
+    <svg class="mark" style="width:34px;height:34px;margin-bottom:2.2rem" viewBox="0 0 100 100" aria-hidden="true"><path d="M 63.0 14.3 A 38 38 0 1 1 37.0 14.3" fill="none" stroke="currentColor" stroke-width="9"/><rect x="43" y="11" width="14" height="6.5" rx="1" fill="currentColor"/><circle cx="50" cy="50" r="20" fill="none" stroke="currentColor" stroke-width="6"/></svg>
     <div class="foot-top">
       <div>
         <p class="eyebrow">Follow along</p>
