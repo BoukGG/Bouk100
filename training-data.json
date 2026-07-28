@@ -1,0 +1,68 @@
+{
+  "updated": "2026-07-28",
+  "raceDate": "2027-01-15T12:00:00",
+  "blockStart": "2026-07-27T12:00:00",
+
+  "phases": [
+    { "id": 0, "name": "Consistency", "weeks": [1, 6], "goal": "Kill the variance. Build the strength base.", "tint": "#5B7C99" },
+    { "id": 1, "name": "Volume", "weeks": [7, 14], "goal": "Back-to-backs. Gut training.", "tint": "#4A8C6F" },
+    { "id": 2, "name": "Specificity", "weeks": [15, 21], "goal": "Tune-up race. Night work. Simulations.", "tint": "#B07A28" },
+    { "id": 3, "name": "Taper", "weeks": [22, 25], "goal": "Shed fatigue. Hold sharpness.", "tint": "#8A6BA8" }
+  ],
+
+  "weeks": [
+    { "n": 1, "ph": 0, "mi": [0, 6, 7, 6, 5, 14, 4], "note": "Baseline week. Strength starts. Order bloodwork.",
+      "ov": { "4": "Easy run + Strength B — order lab panel this week" } },
+    { "n": 2, "ph": 0, "mi": [0, 7, 8, 6, 5, 16, 4], "note": "Introduce cadence drills.",
+      "ov": { "3": "Easy run + cadence drills (4×3 min at +8 spm, 4×3 min at −5)" } },
+    { "n": 3, "ph": 0, "mi": [0, 8, 8, 7, 5, 17, 5], "note": "First full three-shoe rotation week. Different model each run.", "ov": {} },
+    { "n": 4, "ph": 0, "mi": [0, 6, 6, 6, 4, 12, 4], "down": true, "note": "Down week. Full rest Monday and Friday.", "ov": {} },
+    { "n": 5, "ph": 0, "mi": [0, 7, 8, 7, 5, 18, 5], "note": "First real tempo session.",
+      "ov": { "2": "Quality — 3×10 min steady-state, 2 min float between" } },
+    { "n": 6, "ph": 0, "mi": [0, 8, 9, 7, 6, 18, 6], "note": "Long run on pre-fatigued legs.",
+      "ov": { "4": "Easy 6 — deliberate pre-fatigue for Saturday" } },
+
+    { "n": 7, "ph": 1, "mi": [0, 8, 9, 8, 5, 20, 8], "note": "Run/walk 9:1 begins on every long run. Set the COROS interval timer.",
+      "ov": { "5": "Long run 20 — run/walk 9:1 from minute one" } },
+    { "n": 8, "ph": 1, "mi": [0, 9, 10, 8, 3, 22, 10], "note": "Gut training starts. Fuel from minute 30, every long run.",
+      "ov": { "5": "Long run 22 — fuel from min 30, target 60 g carb/hr" } },
+    { "n": 9, "ph": 1, "mi": [0, 7, 8, 6, 4, 14, 6], "down": true, "note": "Down week.", "ov": {} },
+    { "n": 10, "ph": 1, "mi": [0, 8, 9, 7, 2, 22, 12], "note": "First true back-to-back weekend.",
+      "ov": { "5": "Long run 22", "6": "Back-to-back 12 — on unrecovered legs. Should feel bad." } },
+    { "n": 11, "ph": 1, "mi": [0, 9, 10, 7, 2, 24, 12], "note": "Push fueling rate.",
+      "ov": { "5": "Long run 24 — push to 70 g carb/hr", "6": "Back-to-back 12" } },
+    { "n": 12, "ph": 1, "mi": [0, 10, 10, 8, 2, 26, 12], "note": "First circadian-trough session. Normal sleep, early alarm.",
+      "ov": { "5": "Long run 26 — 3:30 AM start. Sleep normally, nap after.", "6": "Back-to-back 12" } },
+    { "n": 13, "ph": 1, "mi": [0, 8, 8, 6, 4, 16, 8], "down": true, "note": "Down week. Honest niggle audit — anything nagging?", "ov": {} },
+    { "n": 14, "ph": 1, "mi": [0, 9, 9, 6, 2, 24, 12], "note": "Full race kit dress rehearsal.",
+      "ov": { "5": "Long run 24 — full race kit. Pack, shoes, socks, everything.", "6": "Back-to-back 12" } },
+
+    { "n": 15, "ph": 2, "mi": [0, 10, 10, 8, 2, 26, 12], "note": "Night running in the kit you'll actually wear in January.",
+      "ov": { "5": "Long run 26 — night run, full cold-weather kit, two headlamps", "6": "Back-to-back 12" } },
+    { "n": 16, "ph": 2, "mi": [0, 9, 10, 8, 4, 14, 10], "note": "Taper into the tune-up race.", "ov": {} },
+    { "n": 17, "ph": 2, "mi": [0, 6, 4, 2, 0, 50, 0], "race": true, "note": "Oakwood 24, Raleigh. Looped, flat, timed — a scale model of race day.",
+      "ov": { "5": "OAKWOOD 24 — run 50 miles at 100-mile effort, then stop." } },
+    { "n": 18, "ph": 2, "mi": [0, 7, 8, 6, 4, 12, 8], "down": true, "note": "Recovery week. Tart cherry juice this week only.", "ov": {} },
+    { "n": 19, "ph": 2, "mi": [0, 10, 10, 8, 2, 26, 12], "note": "Second circadian-trough session. Apply what the tune-up taught you.",
+      "ov": { "5": "Long run 26 — 3:30 AM start. Normal sleep, nap after.", "6": "Back-to-back 12" } },
+    { "n": 20, "ph": 2, "mi": [0, 9, 10, 8, 0, 40, 5], "sim": true, "note": "PEAK WEEK. Simulation 1.",
+      "ov": { "5": "SIM 1 — 11–12 hrs, 12:00 PM start. Mirrors race laps 1–5.", "6": "Shakeout 5 — very easy" } },
+    { "n": 21, "ph": 2, "mi": [0, 9, 10, 7, 0, 26, 18], "sim": true, "note": "Simulation 2 — back-to-back. Final hard block.",
+      "ov": { "5": "SIM 2a — 5 hrs moderate", "6": "SIM 2b — 3.5 hrs, 5:00 AM start on wrecked legs" } },
+
+    { "n": 22, "ph": 3, "mi": [0, 8, 9, 7, 4, 14, 10], "note": "Taper begins. Nothing over 3 hours from here on.", "ov": {} },
+    { "n": 23, "ph": 3, "mi": [0, 7, 8, 6, 3, 10, 8], "note": "Drop bag list finalized. Crew briefed. Last strength session Dec 31.", "ov": {} },
+    { "n": 24, "ph": 3, "mi": [0, 6, 6, 5, 2, 8, 5], "note": "Caffeine taper starts Jan 5 (cut 50%). Bank sleep over training.", "ov": {} },
+    { "n": 25, "ph": 3, "mi": [6, 5, 4, 0, 100, 0, 0], "raceweek": true, "note": "Race week. Nothing new. Not one thing.",
+      "ov": { "0": "Easy 6", "1": "Easy 5 with 6×1 min at race pace", "2": "Easy 4 — shakeout", "3": "Full rest. Zero caffeine from Jan 10.",
+              "4": "RACE — 100 miles", "5": "—", "6": "—" } }
+  ],
+
+  "completed": {
+    "0-0": true
+  },
+
+  "actuals": {
+    "2026-07-27": { "miles": 0, "note": "Rest day — completed. Block officially underway." }
+  }
+}

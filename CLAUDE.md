@@ -8,7 +8,9 @@ A single-page fundraising website: "Both Clocks Start Friday at Noon" — a 100-
 
 ## Structure
 
-The entire site is one file, `index.html`, with no build step, no dependencies, and no framework. CSS and JavaScript are inlined. It's designed to be hosted as a static file (Netlify, GitHub Pages, Cloudflare Pages).
+The site is `index.html`, with no build step, no dependencies, and no framework. CSS and JavaScript are inlined. It's designed to be hosted as a static file (Netlify, GitHub Pages, Cloudflare Pages).
+
+`training-data.json` is the single source of truth for the training block: the 25-week plan (`weeks`, `phases`, dates), the completed-session record (`completed`, keyed `"weekIndex-dayIndex"`, zero-based), and public daily actuals (`actuals`, keyed `"YYYY-MM-DD"` with `miles` and an optional `note`). Both `index.html` (the "Live from the build" block on the `#log` view) and the training console read it. **Nightly update flow:** when the owner reports a completed session, add its key to `completed`, add an `actuals` entry for the date, and bump `updated` — nothing else needs to change. Never put private health data (weight, sleep, soreness) in this file; it's public. Those stay in the console's localStorage.
 
 Within `index.html`:
 
@@ -25,9 +27,9 @@ Within `index.html`:
 
 ## Training Console (`ultra-console.jsx`)
 
-A separate React component (originally a claude.ai chat artifact, not part of the website — nothing imports it) that renders the owner's 25-week training plan for the race. The `COMPLETED` constant near the top is the durable record of finished sessions, keyed `"weekIndex-dayIndex"` (zero-based; `"0-0"` = Week 1 Monday). When the owner reports completing a workout, add its key there with a short comment — interactive checkmarks save only to per-browser/per-chat storage, so this file is the source of truth.
+A React component (originally a claude.ai chat artifact; the website does not import it) that renders the owner's private training cockpit: today's session, interactive checkoffs, a daily log, and planned-vs-actual charts. It contains no plan data of its own — it reads everything from `window.TRAINING_DATA`, which `console.html` populates from `training-data.json` before compiling the component. Interactive checkmarks and log entries save to per-browser localStorage on top of the JSON baselines (`completed`, `actuals`); un-completing a baselined day requires editing the JSON.
 
-`console.html` renders the component with no build step: it loads the React and Babel UMD builds vendored in `vendor/`, fetches the `.jsx`, compiles it in the browser, and shims the artifact `window.storage` API onto `localStorage`. It must be served over HTTP (`fetch` of the `.jsx` fails from `file://`).
+`console.html` renders the component with no build step: it loads the React and Babel UMD builds vendored in `vendor/`, fetches `training-data.json` and the `.jsx`, compiles in the browser, and shims the artifact `window.storage` API onto `localStorage`. It must be served over HTTP (`fetch` fails from `file://`).
 
 ## Development
 

@@ -351,6 +351,39 @@ p{margin:0 0 1.15em}
   .entry-meta b{display:inline}
 }
 
+/* ---------- live training block (fed by training-data.json) ---------- */
+.live{
+  border:1px solid rgba(13,27,42,.16); border-radius:4px;
+  background:rgba(13,27,42,.03);
+  padding:1.3rem 1.3rem 1.45rem; margin-bottom:2.6rem;
+}
+.live-head{display:flex; justify-content:space-between; align-items:baseline; gap:1rem; margin-bottom:1.1rem}
+.live-upd{font-family:var(--mono); font-size:.64rem; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-70)}
+.live-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(120px,1fr)); gap:1rem}
+.live-stat b{font-family:var(--display); font-size:1.8rem; font-weight:800; letter-spacing:-.02em; line-height:1; display:block}
+.live-stat span{
+  font-family:var(--mono); font-size:.6rem; letter-spacing:.11em; text-transform:uppercase;
+  color:var(--ink-70); display:block; margin-top:.4rem;
+}
+/* the phase is a word, not a number — smaller type, baseline-aligned
+   with the numeric stats so "Specificity" never wraps mid-word */
+#lv-phase{font-size:1.2rem; min-height:1.8rem; display:flex; align-items:flex-end}
+.live-week{margin-top:1.3rem}
+.live-week-label{
+  display:flex; justify-content:space-between; gap:1rem;
+  font-family:var(--mono); font-size:.66rem; letter-spacing:.08em; color:var(--ink-70); margin-bottom:.45rem;
+}
+.live-bar{height:10px; border-radius:2px; background:rgba(13,27,42,.1); overflow:hidden}
+.live-bar i{display:block; height:100%; width:0; background:var(--lamp); border-radius:2px; transition:width .9s cubic-bezier(.2,.8,.3,1)}
+.live-note{font-size:.95rem; font-style:italic; color:var(--ink-70); margin:1.15rem 0 0}
+/* MOBILE: auto-fit can land on an awkward 3+1 wrap — lock to two-up,
+   which reads deliberately, and shrink the stat numbers a step */
+@media (max-width:620px){
+  .live{padding:1.05rem 1rem 1.2rem; margin-bottom:1.9rem}
+  .live-grid{grid-template-columns:1fr 1fr; gap:.9rem}
+  .live-stat b{font-size:1.5rem}
+}
+
 /* ---------- facts list ---------- */
 .facts{list-style:none; margin:0; padding:0; border-top:1px solid rgba(239,232,216,.2)}
 .facts li{
@@ -671,6 +704,30 @@ p{margin:0 0 1.15em}
   <div class="band">
     <div class="col">
 
+      <!-- Live numbers fetched from training-data.json at load. Stays
+           hidden if the fetch fails (e.g. previewing over file://), so
+           the narrative log below always stands on its own. -->
+      <div class="live" id="live" hidden>
+        <div class="live-head">
+          <span class="eyebrow" style="color:var(--pine)">Live from the build</span>
+          <span class="live-upd" id="lv-upd"></span>
+        </div>
+        <div class="live-grid">
+          <div class="live-stat"><b id="lv-days">—</b><span>days to race</span></div>
+          <div class="live-stat"><b id="lv-week">—</b><span>training week</span></div>
+          <div class="live-stat"><b id="lv-sessions">—</b><span>sessions done</span></div>
+          <div class="live-stat"><b id="lv-phase">—</b><span>phase</span></div>
+        </div>
+        <div class="live-week">
+          <div class="live-week-label">
+            <span id="lv-wklabel">this week</span>
+            <span id="lv-wkmiles"></span>
+          </div>
+          <div class="live-bar"><i id="lv-bar"></i></div>
+        </div>
+        <p class="live-note" id="lv-note" hidden></p>
+      </div>
+
       <!-- EDIT: copy one <article> block below to add a new entry. Newest at top. -->
       <article class="entry">
         <div class="entry-meta">
@@ -868,6 +925,50 @@ p{margin:0 0 1.15em}
   }
 
   go((location.hash || '#home').slice(1), false);
+
+  /* ---- live training block: render training-data.json if reachable ---- */
+  fetch('training-data.json')
+    .then(function(r){ return r.ok ? r.json() : Promise.reject(r.status); })
+    .then(function(d){
+      var now = new Date();
+      var start = new Date(d.blockStart);
+      var days = Math.max(0, Math.ceil((new Date(d.raceDate) - now) / 864e5));
+      var el = Math.floor((now - start) / 864e5);
+      var wi = Math.max(0, Math.min(d.weeks.length - 1, Math.floor(el / 7)));
+      var w = d.weeks[wi];
+      /* race week's 100 doesn't count as training volume */
+      var planned = w.mi.reduce(function(a, b){ return a + b; }, 0) - (w.raceweek ? 100 : 0);
+      var actual = 0;
+      Object.keys(d.actuals || {}).forEach(function(k){
+        var off = Math.floor((new Date(k + 'T12:00:00') - start) / 864e5);
+        if (Math.floor(off / 7) === wi) actual += (d.actuals[k].miles || 0);
+      });
+      var set = function(id, v){ document.getElementById(id).textContent = v; };
+      set('lv-upd', 'updated ' + d.updated);
+      set('lv-days', days);
+      set('lv-week', (el >= 0 ? wi + 1 : 1) + ' / ' + d.weeks.length);
+      set('lv-sessions', Object.keys(d.completed || {}).length);
+      set('lv-phase', d.phases[w.ph].name);
+      set('lv-wklabel', 'Week ' + w.n + ' — miles run');
+      set('lv-wkmiles', actual + ' of ' + planned + ' planned');
+      var dates = Object.keys(d.actuals || {}).sort();
+      for (var i = dates.length - 1; i >= 0; i--){
+        if (d.actuals[dates[i]].note){
+          var nd = new Date(dates[i] + 'T12:00:00');
+          set('lv-note', '“' + d.actuals[dates[i]].note + '” — ' +
+            nd.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }));
+          document.getElementById('lv-note').hidden = false;
+          break;
+        }
+      }
+      document.getElementById('live').hidden = false;
+      /* reveal first, then set the width so the bar animates in */
+      requestAnimationFrame(function(){
+        document.getElementById('lv-bar').style.width =
+          Math.min(100, planned ? (actual / planned) * 100 : 0) + '%';
+      });
+    })
+    .catch(function(){ /* no data reachable — leave the block hidden */ });
 
   /* The browser also tries to jump to the element matching the URL hash,
      which left the page parked just below the sticky bar on load. JS owns
