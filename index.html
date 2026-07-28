@@ -985,8 +985,10 @@ p{margin:0 0 1.15em}
     if (target) setTimeout(function(){ target.scrollIntoView({behavior:'auto'}); }, 0);
   }
 
-  /* ---- live training block: render training-data.json if reachable ---- */
-  fetch('training-data.json')
+  /* ---- live training block: render training-data.json if reachable ----
+     The cache-busting query defeats GitHub Pages' 10-minute asset cache,
+     so nightly updates show on the next normal page load. */
+  fetch('training-data.json?v=' + Date.now())
     .then(function(r){ return r.ok ? r.json() : Promise.reject(r.status); })
     .then(function(d){
       var now = new Date();
