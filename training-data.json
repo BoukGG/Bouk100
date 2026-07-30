@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-28",
+  "updated": "2026-07-30",
   "raceDate": "2027-01-15T12:00:00",
   "blockStart": "2026-07-27T12:00:00",
 
@@ -60,11 +60,15 @@
 
   "completed": {
     "0-0": true,
-    "0-1": true
+    "0-1": true,
+    "0-2": true,
+    "0-3": true
   },
 
   "actuals": {
     "2026-07-27": { "miles": 0, "note": "Rest day — completed. Block officially underway." },
-    "2026-07-28": { "miles": 6, "note": "We're just getting started." }
+    "2026-07-28": { "miles": 6, "note": "We're just getting started." },
+    "2026-07-29": { "miles": 7 },
+    "2026-07-30": { "miles": 6, "note": "Feeling alive." }
   }
 }
